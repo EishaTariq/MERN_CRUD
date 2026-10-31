@@ -10,5 +10,7 @@ Client/dist/
 .env
 Server/.env
 
+Client/.vite/
+
 .DS_Store
 
