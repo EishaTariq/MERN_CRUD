@@ -1,24 +1,28 @@
+
 import React, { useState } from 'react';
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 function CreateUser() {
+    const API_URL = import.meta.env.VITE_API_URL;
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [age, setAge] = useState("");
-    const navigate=useNavigate();
+
+    const navigate = useNavigate();
+
     const Submit = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:3000/createUser", {
+        axios.post(`${API_URL}/createUser`, {
             name,
             email,
             age
         })
         .then(result => {
             console.log(result);
-             navigate('/');
-
+            navigate('/');
         })
         .catch(err => {
             console.log(err);

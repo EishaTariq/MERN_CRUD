@@ -5,16 +5,18 @@ import axios from'axios'
 
 
 
-
 function Users(){
     const[users,setUsers]=useState([])
-    useEffect(()=>{
-        axios.get('http://localhost:3000')
-        .then(results=>setUsers(results.data))
-        .catch(err=>console.log(err))
-    },[])
-    const handleDelete = (id) => {
-    axios.delete('http://localhost:3000/deleteUser/' + id)
+  const API_URL = import.meta.env.VITE_API_URL;
+
+useEffect(() => {
+    axios.get(API_URL)
+        .then(results => setUsers(results.data))
+        .catch(err => console.log(err));
+}, []);
+
+const handleDelete = (id) => {
+    axios.delete(`${API_URL}/deleteUser/${id}`)
         .then(() => {
             setUsers(prevUsers =>
                 prevUsers.filter(user => user._id !== id)

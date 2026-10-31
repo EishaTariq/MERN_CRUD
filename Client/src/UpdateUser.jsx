@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function UpdateUser() {
-
+    const API_URL = import.meta.env.VITE_API_URL;
     const { id } = useParams();
 
     const [name, setName] = useState("");
@@ -14,7 +14,7 @@ function UpdateUser() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:3000/getUser/' + id)
+        axios.get(`${API_URL}/getUser/${id}`)
             .then(result => {
                 setName(result.data.name);
                 setEmail(result.data.email);
@@ -26,8 +26,8 @@ function UpdateUser() {
     const Update = (e) => {
         e.preventDefault();
 
-        axios.put('http://localhost:3000/updateUser/' + id, {
-            name, 
+        axios.put(`${API_URL}/updateUser/${id}`, {
+            name,
             email,
             age
         })
@@ -41,7 +41,6 @@ function UpdateUser() {
     return (
         <div className='d-flex vh-100 bg-primary justify-content-center align-items-center'>
             <div className='w-50 bg-white rounded p-3'>
-
                 <form onSubmit={Update}>
                     <h2>Update User</h2>
 
@@ -77,8 +76,6 @@ function UpdateUser() {
 
                     <button className='btn btn-success'>Update</button>
                 </form>
-
-
             </div>
         </div>
     );
