@@ -1,12 +1,21 @@
-const express=require("express")
-const mongoose=require("mongoose")
-const cors=require('cors')
-const UserModel=require('./models/Users')
-const app=express();
-app.use(cors())
+
+require("dotenv").config();
+
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const UserModel = require("./models/Users");
+
+const app = express();
+
+app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb://localhost:27017/crud")
+// MongoDB Atlas connection
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log("MongoDB Connected Successfully"))
+    .catch(err => console.log("MongoDB Connection Error:", err));
+
 
 app.get('/',(req,res)=>{
     UserModel.find({})
@@ -74,6 +83,8 @@ app.delete('/deleteUser/:id', (req, res) => {
             res.status(500).json({ message: err.message });
         });
 });
-app.listen(3000,()=>{
-    console.log("Sever is running")
-})               
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});

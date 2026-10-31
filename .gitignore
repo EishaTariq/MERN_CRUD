@@ -1,13 +1,14 @@
 node_modules/
 Client/node_modules/
-Server/node_modules/
 
 .env
 Client/.env
-Server/.env
-
-.vite/
-Client/.vite/
 
 dist/
 Client/dist/
+
+.env
+Server/.env
+
+.DS_Store
+
