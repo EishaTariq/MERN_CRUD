@@ -17,11 +17,18 @@ mongoose.connect(process.env.MONGO_URI)
     .catch(err => console.log("MongoDB Connection Error:", err));
 
 
-app.get('/',(req,res)=>{
-    UserModel.find({})
-    .then(users=>res.json(users))
-    .catch(err=>res.json(err))
-})
+app.get('/', async (req, res) => {
+    try {
+        const users = await UserModel.find({});
+        res.status(200).json(users);
+    } catch (err) {
+        console.log("Fetch Users Error:", err);
+
+        res.status(500).json({
+            message: err.message
+        });
+    }
+});
 
 app.post('/createUser', async (req, res) => {
     try {
